@@ -22,7 +22,9 @@ const cheerio = require('cheerio');
 const html = fs.readFileSync('./wolves_and_sheeps.html', 'utf8');
 const $ = cheerio.load(html);
 
+const excluded_heroes = ['две приживалки', 'крестьяне', 'мастеровые'];
 
+// персонажи по каждому явлению из заголовков
 const acts = [];
 $('h2').map(function(i, el) {
 	const heading = $(el).text().trim();
@@ -33,11 +35,15 @@ $('h2').map(function(i, el) {
 		const names_lowercase = $(el).next().find('i b').toArray().map(el => $(el).text().trim().toLowerCase());
 		const names_unique = [...new Set(names_lowercase)];
 		const names_sorted = names_unique.sort();
-		acts.last().push(names_sorted);
+		const names = names_sorted.filter(el => excluded_heroes.indexOf(el) === -1);
+		acts.last().push(names);
 	}
-})
+});
+
+fs.writeFileSync('./data.json', JSON.stringify({acts: acts}));
 
 const drama_heroes = flatten_unique_sort( acts.map(act => [].concat.apply([], act)) );
+console.log(drama_heroes);
 
 const matrix = {};
 drama_heroes.forEach(name => matrix[name] = acts.map(act => act.map(scene => scene.indexOf(name) !== -1 ? 1 : 0)));
