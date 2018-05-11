@@ -95,6 +95,14 @@ plt.xlabel('явление');
 plt.ylabel('плотность');
 plt.grid();"""))
 
+  nb['cells'].append(new_code_cell("""\
+plt.plot(act_d)
+plt.grid();
+plt.xlabel('действие');
+plt.ylabel('плотность');
+plt.xticks(range(len(act_d)+1), range(1, len(act_d)+1));
+plt.xlim([0, len(act_d)-1]);"""))
+
   nb['cells'].append(new_markdown_cell("## Расстояние"))
 
   nb['cells'].append(new_code_cell("""\
