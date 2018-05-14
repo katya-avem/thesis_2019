@@ -151,6 +151,9 @@ plt.scatter(range(len(drama_heroes)), df.values);
 plt.xticks(range(len(drama_heroes)), df.columns, rotation=90);
 plt.grid();"""))
 
+  nb['cells'].append(new_code_cell("""\
+df"""))
+
   nb['cells'].append(new_markdown_cell("## Абсолютные относительные частоты"))
 
   nb['cells'].append(new_code_cell("""\
