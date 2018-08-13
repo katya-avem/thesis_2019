@@ -1,6 +1,6 @@
 ## Description
 
-One Paragraph of project description goes here
+These files represent the methods of quantitative analysis described in V. A. Sapogov's article «Some characteristics of dramaturgic construction of Ostrovsky’s comedy "Forest"». This method helps to consider the system of the social relations and plot functions of characters of various plays by means of the quantitative characteristics such as busyness, frequency of emergence, mobility, rank and probability of characters’s meetings. In this research methods of the quantitative analysis are applied to some plays of the 1870-s, namely «Forest» and «Wolves and sheep» by A. N. Ostrovsky, «Loop» and «Topic of the day» by N. A. Potekhin and «Mayorsha» by I.V. Shpazhinsky.
 
 ## Prerequisites
 
