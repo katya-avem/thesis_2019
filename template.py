@@ -1,10 +1,14 @@
+import argparse
+
 import nbformat as nbf
 from nbformat.v4 import new_notebook, new_code_cell, new_markdown_cell
+from nbconvert.preprocessors import ExecutePreprocessor
 
-# jupyter nbconvert --execute --inplace volki_i_ovtsy.ipynb
+from dramas import dramas
+from pprint import pformat
 
-def generate(name, data):
 
+def generate(data):
   nb = new_notebook()
   nb['cells'] = []
 
@@ -206,4 +210,24 @@ plt.subplots(figsize=(14, 10))
 sns.heatmap(freq_, annot=True, xticklabels=drama_heroes, yticklabels=drama_heroes, fmt='.2f', vmin=-1, vmax=1)
 plt.title(r"$P_1 – P_{1,2}$, на диагонали абсолютные частоты");"""))
 
-  nbf.write(nb, './%s.ipynb' % name)
+  return nb
+
+
+if __name__ == '__main__':
+  ap = argparse.ArgumentParser()
+  ap.add_argument("-n", "--name", required=True, help="title of the drama")
+  ap.add_argument("-e", "--execute", help="execute created notebook", action="store_true")
+  args = vars(ap.parse_args())
+
+  name = args['name']
+  dramas = dict([(drama['name'], drama['data']) for drama in dramas])
+  if name not in dramas:
+    raise ValueError('title not found in database')
+
+  notebook = generate(pformat(dramas[name]))
+  nbf.write(notebook, './notebooks/%s.ipynb' % name)
+  
+  if args['execute']:
+    ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+    ep.preprocess(notebook, {'metadata': {'path': 'notebooks/'}})
+    nbf.write(notebook, './notebooks/%s.ipynb' % name)
