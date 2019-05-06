@@ -8,17 +8,8 @@ Live in `requirements.txt`
 
 ## Usage
 
-1. Create a file drama_name.py with the following content:
-```python
-from template import generate
-
-name = 'drama_name'
-data = [[['3-d list with drama heroes here for each scene and act here']]]
-generate(name, data)
-```
-2. Execute `python drama_name.py`. This will generate `drama_name.ipynb`
-
-3. Execute `jupyter nbconvert --execute --inplace drama_name.ipynb`
+1. Update `dramas/__init__.py`.
+2. Execute `python template.py --name="drama title as in dramas/__init__.py" [--execute]`.
 
 ## License
 
